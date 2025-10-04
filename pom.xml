@@ -22,7 +22,7 @@
     <modules>
         <module>ms-etl</module>
         <module>etl-core</module>
-<!--        <module>oracle-core</module>-->
-<!--        <module>worker-extraction</module>-->
+        <module>worker-staging-data</module>
+        <!--        <module>oracle-core</module>-->
     </modules>
 </project>
