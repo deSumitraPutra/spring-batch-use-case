@@ -15,5 +15,5 @@ CREATE TABLE [main-report].dbo.[etl_item_history] (
     [message] [varchar](MAX) NULL,
     [created_at] [datetime2](7) NULL,
     [updated_at] [datetime2](7) NULL,
-    CONSTRAINT [PK_MONITORING_ETL] PRIMARY KEY CLUSTERED([id] ASC) ON [PRIMARY]
+    CONSTRAINT [PK_ETL_ITEM_HISTORY] PRIMARY KEY CLUSTERED([id] ASC) ON [PRIMARY]
 ) ON [PRIMARY];
