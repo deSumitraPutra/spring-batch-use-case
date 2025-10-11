@@ -52,7 +52,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- ETL CORE -->
+        <!-- CORE -->
         <dependency>
             <groupId>sum.batch</groupId>
             <artifactId>etl-core</artifactId>
