@@ -32,6 +32,7 @@ public class KafkaConfig {
         consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.bootstrapServers);
         consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "etl_job");
 
         return new DefaultKafkaConsumerFactory<>(consumerProps);
     }
