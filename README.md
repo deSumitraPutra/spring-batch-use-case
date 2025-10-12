@@ -7,12 +7,6 @@ that my team struggle to utilize SSIS of SQL server database for processing data
 potential bottleneck that could happen.
 
 ## What I'm About To Explore
-1. Basic data migration. [Coming Soon!]()
-   - Table A to table B same db
-   - Table A to table A same dialect different instance
-   - Table A to table A different dialect
+1. Basic data migration. [Take a look here!](https://github.com/deSumitraPutra/spring-batch-use-case/tree/feat/basic-migration)
 2. Asynchronous migration. [Coming Soon!]()
 3. Data transformation by separating transformation load. [Coming Soon!]()
-   - Transformation in different DB
-   - Strict job queueing using additional table
-   - String job queueing using kafka
