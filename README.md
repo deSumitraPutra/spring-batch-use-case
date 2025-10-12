@@ -1,18 +1,34 @@
-# Spring Batch Use Case
+# Basic Migration
 
-## Background
-Here I try to explore the feature of Spring Batch. I also want to explore some use case that can solved with Spring Batch.
-Maybe in the future I'll also explore about the performance of my implementation here. The reason behind this exploration is
-that my team struggle to utilize SSIS of SQL server database for processing data. Not because of setting up the SSIS but there is a
-potential bottleneck that could happen.
+## Summary
+In this case I want to copy data from a database source 
+to my team database.
 
-## What I'm About To Explore
-1. Basic data migration. [Coming Soon!]()
-   - Table A to table B same db
-   - Table A to table A same dialect different instance
-   - Table A to table A different dialect
-2. Asynchronous migration. [Coming Soon!]()
-3. Data transformation by separating transformation load. [Coming Soon!]()
-   - Transformation in different DB
-   - Strict job queueing using additional table
-   - String job queueing using kafka
+## Setup
+- Database connector: JDBC only
+- Spring Batch Metadata: H2
+- Databases: Oracle(source), SQL Server(destination)
+- Initiator: Kafka Listener
+- Executor: ThreadPoolTaskExecutor
+- Kafka topic: 'ETL' with only one partition(well for now)
+
+## Flow
+1. A service called ms-etl has API `POST /etls` that can send an ETL requests 
+to kafka with topic 'ETL'.
+2. A consumer called worker-staging-data listen to 'ETL' topic. And convert the message
+into POJO.
+3. Listener method find a job based on message received and launch the job using JobLauncher instance.
+4. A job launched!. First step set status of EtlItem into RUNNING.
+5. Next, read data from source, map the result and write to destination by chunking.
+6. A listener was set to log each chunk activity.
+7. A job listener was set and has functionalities:
+   - beforeJob: find out how many row will be processed and set the result into job parameters.
+   - afterJob: set EtlItem based on the result(SUCCESS/FAILED), record EtlItem into history table and send notification via kafka.
+
+## What Did I Find Out
+1. In order to connect spring boot app with oracle database you need the schema name as
+username. You cannot just use the highest privileged user.
+2. Don't declare a step as bean if you plan to make it re-usable.
+3. By default, JobLauncher is run synchronously. So you need to configure asynchronous JobLauncher especially 
+when there are multiple kafka message arrive.
+4. H2 is not recommended for Spring Batch metadata datasource, because it's in-memory database.
