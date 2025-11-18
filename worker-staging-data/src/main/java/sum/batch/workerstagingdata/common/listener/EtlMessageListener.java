@@ -15,7 +15,6 @@ import sum.batch.workerstagingdata.model.ExtractionPayload;
 @RequiredArgsConstructor
 @Slf4j
 public class EtlMessageListener {
-    private final JobLauncher jobLauncher;
     private final JobLauncher asyncJobLauncher;
     private final JobRegistry jobRegistry;
 
