@@ -1,21 +1,25 @@
 # Basic Migration
 
 ## Summary
-In this case I want to copy data from a database source 
-to my team database.
+In this case I want to copy some table from main database into worker database, run
+stored procedure in worker database and write back to main database the result. Of course this 
+includes side effect like error, notification and database flagging.
+
+This pattern allow main database to focus on serving data to client while worker database can run
+heavy query or aggregation.
 
 ## Setup
 - Database connector: JDBC only
 - Spring Batch Metadata: H2
-- Databases: Oracle(source), SQL Server(destination)
+- Databases: main-database(sql-server), worker-database(sql-server)
 - Initiator: Kafka Listener
-- Executor: ThreadPoolTaskExecutor
-- Kafka topic: 'ETL' with only one partition(well for now)
+- Executor: ThreadPoolTaskExecutor(dynamic async)
+- Kafka topic: 'TRANSFORM' with only one partition(well for now)
 
 ## Flow
-1. A service called ms-etl has API `POST /etls` that can send an ETL requests 
-to kafka with topic 'ETL'.
-2. A consumer called worker-staging-data listen to 'ETL' topic. And convert the message
+1. A service called ms-etl has API `POST /transforms` that send requests 
+to kafka with topic 'TRANSFORM'.
+2. A consumer called worker-transformer listen to 'TRANSFORM' topic. And convert the message
 into POJO.
 3. Listener method find a job based on message received and launch the job using JobLauncher instance.
 4. A job launched!. First step set status of EtlItem into RUNNING.
@@ -26,9 +30,4 @@ into POJO.
    - afterJob: set EtlItem based on the result(SUCCESS/FAILED), record EtlItem into history table and send notification via kafka.
 
 ## What Did I Find Out
-1. In order to connect spring boot app with oracle database you need the schema name as
-username. You cannot just use the highest privileged user.
-2. Don't declare a step as bean if you plan to make it re-usable.
-3. By default, JobLauncher is run synchronously. So you need to configure asynchronous JobLauncher especially 
-when there are multiple kafka message arrive.
-4. H2 is not recommended for Spring Batch metadata datasource, because it's in-memory database.
+1. 
