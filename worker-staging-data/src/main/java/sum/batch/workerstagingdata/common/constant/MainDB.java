@@ -74,17 +74,15 @@ public final class MainDB {
     public final class TransactionQuery {
         public static final String INSERT_ROW =
             "INSERT INTO stg_transaction (" +
-                "code, " +
-                "name, " +
-                "description, " +
-                "price, " +
-                "created_at) " +
+                "identifier, " +
+                "status, " +
+                "created_at, " +
+                "updated_at) " +
             "VALUES (" +
-                ":code, " +
-                ":name, " +
-                ":description, " +
-                ":price, " +
-                ":createdAt)";
+                ":identifier, " +
+                ":status, " +
+                ":createdAt, " +
+                ":updatedAt)";
     }
 
 }
