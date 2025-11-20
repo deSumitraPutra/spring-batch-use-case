@@ -16,13 +16,12 @@
     <artifactId>spring-batch-use-case</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-batch-use-case</name>
-    <description>CASE: basic migration</description>
     <packaging>pom</packaging>
 
     <modules>
         <module>ms-etl</module>
         <module>etl-core</module>
         <module>worker-staging-data</module>
-        <!--        <module>oracle-core</module>-->
+        <module>worker-transformation</module>
     </modules>
 </project>
