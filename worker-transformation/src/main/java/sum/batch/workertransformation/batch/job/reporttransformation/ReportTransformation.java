@@ -15,7 +15,7 @@ import sum.batch.workertransformation.common.listener.JobCompletionListener;
 
 @Configuration
 @RequiredArgsConstructor
-public class ReportTransformationJob {
+public class ReportTransformation {
     private final JobCompletionListener jobCompletionListener;
     private final CommonStep commonStep;
 
