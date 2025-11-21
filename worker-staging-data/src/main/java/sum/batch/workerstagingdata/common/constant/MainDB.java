@@ -85,4 +85,17 @@ public final class MainDB {
                 ":updatedAt)";
     }
 
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public final class ProductTransactionQuery {
+        public static final String INSERT_ROW =
+            "INSERT INTO stg_product_transaction (" +
+                "transaction_id, " +
+                "product_id, " +
+                "product_count) " +
+            "VALUES (" +
+                ":transactionId, " +
+                ":productId, " +
+                ":productCount)";
+    }
+
 }
