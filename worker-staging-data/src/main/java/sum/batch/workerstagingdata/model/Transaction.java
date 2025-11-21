@@ -25,7 +25,7 @@ public class Transaction {
             .identifier(rs.getString("IDENTIFIER"))
             .status(rs.getString("STATUS"))
             .createdAt(rs.getDate("CREATED_AT"))
-            .updatedAt(rs.getDate("UPDATED_DATE"))
+            .updatedAt(rs.getDate("UPDATED_AT"))
             .build();
     }
 }
